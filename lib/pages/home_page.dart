@@ -55,19 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Home",
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.grey[800],
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        iconTheme: const IconThemeData(
-          color: Colors.black,
         ),
       ),
       drawer: myDrawer(context),
@@ -155,12 +144,12 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     "Available Product",
                     style: TextStyle(
+                    color: Colors.blueGrey,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.grey[800],
                     ),
                   ),
                   Text(
@@ -223,10 +212,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 onTap: () {
                   // Handle input
                   Navigator.pushNamed(context, '/addwatchpage')
-                      .then((newWatch) {
-                    if (newWatch != null && newWatch is Watch) {
+                      .then((addedWatch) {
+                    if (addedWatch != null && addedWatch is Watch) {
                       setState(() {
-                        watchList.add(newWatch);
+                        watchList.add(addedWatch);
                       });
                     }
                   });

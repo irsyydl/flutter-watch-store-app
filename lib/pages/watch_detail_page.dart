@@ -16,18 +16,7 @@ class WatchDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Detail",
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.grey[800],
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        iconTheme: const IconThemeData(
-          color: Colors.black,
+          "Detail"
         ),
       ),
       body: Padding(
@@ -68,7 +57,7 @@ class WatchDetailPage extends StatelessWidget {
                             Text(
                               watch.brandName,
                               style: TextStyle(
-                                  fontSize: 16.0, color: Colors.grey[600]),
+                                  fontSize: 16.0, color: Colors.grey[800]),
                             ),
                           ],
                         ),
