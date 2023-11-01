@@ -12,17 +12,6 @@ class MyAboutPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "About",
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.grey[800],
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        iconTheme: const IconThemeData(
-          color: Colors.black,
         ),
       ),
       body: Column(
@@ -44,53 +33,33 @@ class MyAboutPage extends StatelessWidget {
               ),
             ),
           ),
-          const Text(
+          Text(
             'Hi, I am,',
-            style: TextStyle(
-              color: Color(0xFF21243D),
-              fontSize: 32,
-              fontFamily: 'Heebo',
-              fontWeight: FontWeight.w200,
-            ),
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
           const SizedBox(
             height: 10,
           ),
-          const Text(
+          Text(
             'Muhammad Irsyadul Asyrof Haryono',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Color(0xFF21243D),
-              fontSize: 32,
-              fontFamily: 'Heebo',
-              fontWeight: FontWeight.w300,
-            ),
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
           const SizedBox(
             height: 10,
           ),
-          const Text(
+          Text(
             '(2109106047)',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Color(0xFF21243D),
-              fontSize: 24,
-              fontFamily: 'Heebo',
-              fontWeight: FontWeight.w300,
-            ),
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
           const SizedBox(
             height: 25.0,
           ),
-          const Text(
+          Text(
             "Informatika A1'21'",
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Color(0xFF21243D),
-              fontSize: 32,
-              fontFamily: 'Heebo',
-              fontWeight: FontWeight.w300,
-            ),
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
         ],
       ),

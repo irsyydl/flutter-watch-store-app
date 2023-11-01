@@ -52,10 +52,7 @@ class WatchTiles extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     watch.name,
-                    style: const TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(
                     height: 12,

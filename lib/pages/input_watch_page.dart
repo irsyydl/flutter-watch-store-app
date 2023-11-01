@@ -29,17 +29,6 @@ class _AddWatchPageState extends State<AddWatchPage> {
       appBar: AppBar(
         title: Text(
           "Input Watch Page",
-          style: TextStyle(
-            fontSize: screenWidth * 0.04,
-            color: Colors.grey[800],
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        iconTheme: const IconThemeData(
-          color: Colors.black,
         ),
       ),
       body: Padding(
@@ -159,8 +148,8 @@ class _AddWatchPageState extends State<AddWatchPage> {
                 height: 25.0,
               ),
               CupertinoButton(
+                color: Colors.blue[200],
                 // Replace ElevatedButton with CupertinoButton
-                color: Colors.pink,
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     final newWatch = Watch(
@@ -169,6 +158,11 @@ class _AddWatchPageState extends State<AddWatchPage> {
                       price: priceController.text,
                       description: descriptionController.text,
                       imageUrl: imageUrlController.text,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Watch added successfully!'),
+                      ),
                     );
                     Navigator.pop(context, newWatch);
                   }
