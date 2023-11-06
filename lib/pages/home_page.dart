@@ -1,63 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:watch_store/models/watch.dart';
+import 'package:watch_store/providers/watch_list_providers.dart';
+import 'package:watch_store/components/watch_tile.dart';
 
-import '../components/watch_tile.dart';
-import '../models/watch.dart';
-
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  // Watch List
-  List watchList = [
-    Watch(
-      name: "Prospex",
-      brandName: "Seiko",
-      price: "179",
-      description:
-          'Seiko Prospex watches are built for professional use, combining rugged durability with precision. These timepieces are designed for adventurers and explorers, featuring features like water resistance, luminous hands, and robust case materials. The Prospex line offers a wide range of options, from dive watches to pilot watches, making it a versatile choice for those seeking reliable performance in challenging environments',
-      imageUrl: "assets/seiko_prospex.png",
-    ),
-    Watch(
-      name: "Presage",
-      brandName: "Seiko",
-      price: "162",
-      description:
-          'Seiko Presage watches are the embodiment of Japanese artistry and craftsmanship. They are known for their elegant and traditional designs, often incorporating elements of Japanese culture. These timepieces feature high-quality automatic movements and exquisite dials, making them ideal for those who appreciate both form and function. Seiko Presage watches are often considered affordable luxury pieces.',
-      imageUrl: "assets/seiko_presage.png",
-    ),
-    Watch(
-      name: "King Seiko",
-      brandName: "Seiko",
-      price: "210",
-      description:
-          "King Seiko watches pay homage to Seiko's history of watchmaking excellence. With a classic and timeless design, these timepieces blend heritage with modern technology. King Seiko models often feature hand-wound or automatic movements, showcasing the precision that Seiko is renowned for. These watches are a symbol of traditional watchmaking values, appealing to collectors and enthusiasts alike.",
-      imageUrl: "assets/seiko_kingseiko.png",
-    ),
-    Watch(
-      name: "Astron",
-      brandName: "Seiko",
-      price: "199",
-      description:
-          'Seiko Astron watches are at the forefront of technological innovation. They are known for their solar-powered GPS technology, which automatically adjusts the time based on your location, ensuring unparalleled accuracy. These watches are ideal for frequent travelers and individuals who require precise timekeeping without manual adjustments. The Astron collection combines cutting-edge technology with a sleek and modern design.',
-      imageUrl: "assets/seiko_astron.png",
-    ),
-  ];
-  @override
   Widget build(BuildContext context) {
     final mediaQueryData = MediaQuery.of(context);
-
     final screenWidth = mediaQueryData.size.width;
     final screenHeight = mediaQueryData.size.height;
+    final watchList = Provider.of<WatchListProvider>(context).watchList;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Home",
-        ),
+        title: const Text("Home"),
       ),
       drawer: myDrawer(context),
       body: SingleChildScrollView(
@@ -66,8 +25,9 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Container(
               margin: EdgeInsets.symmetric(
-                  horizontal: screenWidth * 0.05,
-                  vertical: screenHeight * 0.02),
+                horizontal: screenWidth * 0.05,
+                vertical: screenHeight * 0.02,
+              ),
               padding: EdgeInsets.all(screenWidth * 0.02),
               height: screenHeight * 0.2,
               decoration: BoxDecoration(
@@ -95,8 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           height: 45,
                           width: 125,
                           decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.circular(screenWidth * 0.02),
+                            borderRadius: BorderRadius.circular(screenWidth * 0.02),
                             color: Colors.blueGrey,
                           ),
                           child: const Row(
@@ -104,8 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             children: [
                               Text(
                                 "Redeem",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 12),
+                                style: TextStyle(color: Colors.white, fontSize: 12),
                               ),
                               Icon(
                                 Icons.arrow_forward,
@@ -122,42 +80,46 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 25.0, vertical: 15.0),
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(screenWidth * 0.02),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(screenWidth * 0.02),
-                    ),
-                    hintText: "Search here...",
-                    contentPadding: EdgeInsets.all(screenWidth * 0.02),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 25.0,
+                vertical: 15.0,
+              ),
+              child: TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(screenWidth * 0.02),
                   ),
-                )),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(screenWidth * 0.02),
+                  ),
+                  hintText: "Search here...",
+                  contentPadding: EdgeInsets.all(screenWidth * 0.02),
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(
-                  left: 25.0, right: 25.0, top: 25.0, bottom: 18.0),
+                left: 25.0,
+                right: 25.0,
+                top: 25.0,
+                bottom: 18.0,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
                     "Available Product",
                     style: TextStyle(
-                    color: Colors.blueGrey,
+                      color: Colors.blueGrey,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
                     "View all",
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.blue[200],
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.blue[200]),
                   ),
                 ],
               ),
@@ -167,9 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: watchList.length,
-                itemBuilder: (context, index) => WatchTiles(
-                  watch: watchList[index],
-                ),
+                itemBuilder: (context, index) => WatchTiles(watch: watchList[index]),
               ),
             ),
           ],
@@ -211,12 +171,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 onTap: () {
                   // Handle input
-                  Navigator.pushNamed(context, '/addwatchpage')
-                      .then((addedWatch) {
+                  Navigator.pushNamed(context, '/addwatchpage').then((addedWatch) {
                     if (addedWatch != null && addedWatch is Watch) {
-                      setState(() {
-                        watchList.add(addedWatch);
-                      });
+                      Provider.of<WatchListProvider>(context, listen: false).addWatch(addedWatch);
                     }
                   });
                 },
