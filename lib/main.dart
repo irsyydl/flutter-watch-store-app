@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watch_store/pages/intro_page.dart';
+import 'package:watch_store/providers/color_scheme_provider.dart';
 import 'package:watch_store/providers/theme_providers.dart';
 import 'package:watch_store/providers/watch_list_providers.dart';
 import 'pages/about_page.dart';
@@ -13,11 +14,13 @@ void main() {
       providers: [
         ChangeNotifierProvider<WatchListProvider>(create: (context) => WatchListProvider()),
         ChangeNotifierProvider<ThemeProvider>(create: (context) => ThemeProvider()),
+        ChangeNotifierProvider<ColorSchemeProvider>(create: (context) => ColorSchemeProvider()),
       ],
       child: const MyApp(),
     ),
   );
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -25,18 +28,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final selectedColorScheme = Provider.of<ColorSchemeProvider>(context).selectedColorScheme;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Watch Store App",
       theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: selectedColorScheme.colorScheme,
           primarySwatch: Colors.grey,
           brightness: Brightness.light,
           scaffoldBackgroundColor: Colors.white,
           appBarTheme: AppBarTheme(
             backgroundColor: Colors.transparent,
             elevation: 0.0,
-            iconTheme: const IconThemeData(color: Colors.black),
+            iconTheme: IconThemeData(color: selectedColorScheme.primaryColor),
             centerTitle: true,
             titleTextStyle: TextStyle(
               color: Colors.grey[800],
@@ -49,13 +55,15 @@ class MyApp extends StatelessWidget {
             titleMedium: TextStyle(color: Colors.black)
           )),
       darkTheme: ThemeData.dark().copyWith(
+        useMaterial3: true,
+        colorScheme: selectedColorScheme.colorScheme,
           primaryColor: Colors.grey[200],
           brightness: Brightness.dark,
           scaffoldBackgroundColor: Colors.black,
-          appBarTheme: const AppBarTheme(
+          appBarTheme: AppBarTheme(
             backgroundColor: Colors.transparent,
             elevation: 0.0,
-            iconTheme: IconThemeData(color: Colors.white),
+            iconTheme: IconThemeData(color: selectedColorScheme.primaryColor),
             centerTitle: true,
             titleTextStyle: TextStyle(
               color: Colors.white,
