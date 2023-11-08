@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watch_store/models/watch.dart';
+import 'package:watch_store/providers/color_scheme_provider.dart';
+import 'package:watch_store/providers/color_schemes.dart';
 import 'package:watch_store/providers/theme_providers.dart';
 import 'package:watch_store/providers/watch_list_providers.dart';
 import 'package:watch_store/components/watch_tile.dart';
@@ -196,6 +198,18 @@ class MyHomePage extends StatelessWidget {
                   showThemeChangeDialog(context);
                 },
               ),
+              ListTile(
+                leading: const Icon(Icons.change_circle),
+                title: const Text(
+                  "Change Color Scheme",
+                  style: TextStyle(
+                    fontSize: 12,
+                  ),
+                ),
+                onTap: () {
+                  showColorSchemeChangeDialog(context);
+                },
+              ),
             ],
           ),
           ListTile(
@@ -280,6 +294,84 @@ class MyHomePage extends StatelessWidget {
                     Navigator.of(context).pop();
                     Provider.of<ThemeProvider>(context, listen: false)
                         .changeTheme(ThemeMode.system);
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void showColorSchemeChangeDialog(BuildContext context) {
+    // Get the ColorSchemeProvider to change the color scheme
+    final colorSchemeProvider =
+        Provider.of<ColorSchemeProvider>(context, listen: false);
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            'Select Color Scheme',
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                title: Text(
+                  'Default',
+                ),
+                leading: Radio(
+                  value: ColorSchemes.defaultTheme,
+                  groupValue: colorSchemeProvider.selectedColorScheme,
+                  onChanged: (value) {
+                    Navigator.of(context).pop();
+                    colorSchemeProvider
+                        .changeColorScheme(ColorSchemes.defaultTheme);
+                  },
+                ),
+              ),
+              ListTile(
+                title: Text(
+                  'Midnight Dark',
+                ),
+                leading: Radio(
+                  value: ColorSchemes.midnightDark,
+                  groupValue: colorSchemeProvider.selectedColorScheme,
+                  onChanged: (value) {
+                    Navigator.of(context).pop();
+                    colorSchemeProvider
+                        .changeColorScheme(ColorSchemes.midnightDark);
+                  },
+                ),
+              ),
+              ListTile(
+                title: Text(
+                  'Green Apple',
+                ),
+                leading: Radio(
+                  value: ColorSchemes.greenApple,
+                  groupValue: colorSchemeProvider.selectedColorScheme,
+                  onChanged: (value) {
+                    Navigator.of(context).pop();
+                    colorSchemeProvider
+                        .changeColorScheme(ColorSchemes.greenApple);
+                  },
+                ),
+              ),
+              ListTile(
+                title: Text(
+                  'Ocean Blue',
+                ),
+                leading: Radio(
+                  value: ColorSchemes.oceanBlue,
+                  groupValue: colorSchemeProvider.selectedColorScheme,
+                  onChanged: (value) {
+                    Navigator.of(context).pop();
+                    colorSchemeProvider
+                        .changeColorScheme(ColorSchemes.oceanBlue);
                   },
                 ),
               ),
