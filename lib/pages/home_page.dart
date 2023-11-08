@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watch_store/models/watch.dart';
+import 'package:watch_store/providers/theme_providers.dart';
 import 'package:watch_store/providers/watch_list_providers.dart';
 import 'package:watch_store/components/watch_tile.dart';
 
@@ -55,7 +56,8 @@ class MyHomePage extends StatelessWidget {
                           height: 45,
                           width: 125,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(screenWidth * 0.02),
+                            borderRadius:
+                                BorderRadius.circular(screenWidth * 0.02),
                             color: Colors.blueGrey,
                           ),
                           child: const Row(
@@ -63,7 +65,8 @@ class MyHomePage extends StatelessWidget {
                             children: [
                               Text(
                                 "Redeem",
-                                style: TextStyle(color: Colors.white, fontSize: 12),
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 12),
                               ),
                               Icon(
                                 Icons.arrow_forward,
@@ -129,7 +132,8 @@ class MyHomePage extends StatelessWidget {
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: watchList.length,
-                itemBuilder: (context, index) => WatchTiles(watch: watchList[index]),
+                itemBuilder: (context, index) =>
+                    WatchTiles(watch: watchList[index]),
               ),
             ),
           ],
@@ -171,11 +175,25 @@ class MyHomePage extends StatelessWidget {
                 ),
                 onTap: () {
                   // Handle input
-                  Navigator.pushNamed(context, '/addwatchpage').then((addedWatch) {
+                  Navigator.pushNamed(context, '/addwatchpage')
+                      .then((addedWatch) {
                     if (addedWatch != null && addedWatch is Watch) {
-                      Provider.of<WatchListProvider>(context, listen: false).addWatch(addedWatch);
+                      Provider.of<WatchListProvider>(context, listen: false)
+                          .addWatch(addedWatch);
                     }
                   });
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.color_lens),
+                title: const Text(
+                  "Change Theme",
+                  style: TextStyle(
+                    fontSize: 12,
+                  ),
+                ),
+                onTap: () {
+                  showThemeChangeDialog(context);
                 },
               ),
             ],
@@ -195,6 +213,80 @@ class MyHomePage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  void showThemeChangeDialog(BuildContext context) {
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            'Select Theme',
+            style: TextStyle(
+              color: isDarkTheme ? Colors.white : Colors.black,
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                title: Text(
+                  'Light Theme',
+                  style: TextStyle(
+                    color: isDarkTheme ? Colors.white : Colors.black,
+                  ),
+                ),
+                leading: Radio(
+                  value: ThemeMode.light,
+                  groupValue: Provider.of<ThemeProvider>(context).themeMode,
+                  onChanged: (value) {
+                    Navigator.of(context).pop();
+                    Provider.of<ThemeProvider>(context, listen: false)
+                        .changeTheme(ThemeMode.light);
+                  },
+                ),
+              ),
+              ListTile(
+                title: Text(
+                  'Dark Theme',
+                  style: TextStyle(
+                    color: isDarkTheme ? Colors.white : Colors.black,
+                  ),
+                ),
+                leading: Radio(
+                  value: ThemeMode.dark,
+                  groupValue: Provider.of<ThemeProvider>(context).themeMode,
+                  onChanged: (value) {
+                    Navigator.of(context).pop();
+                    Provider.of<ThemeProvider>(context, listen: false)
+                        .changeTheme(ThemeMode.dark);
+                  },
+                ),
+              ),
+              ListTile(
+                title: Text(
+                  'System Theme',
+                  style: TextStyle(
+                    color: isDarkTheme ? Colors.white : Colors.black,
+                  ),
+                ),
+                leading: Radio(
+                  value: ThemeMode.system,
+                  groupValue: Provider.of<ThemeProvider>(context).themeMode,
+                  onChanged: (value) {
+                    Navigator.of(context).pop();
+                    Provider.of<ThemeProvider>(context, listen: false)
+                        .changeTheme(ThemeMode.system);
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

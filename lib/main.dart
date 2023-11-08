@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watch_store/pages/intro_page.dart';
+import 'package:watch_store/providers/theme_providers.dart';
 import 'package:watch_store/providers/watch_list_providers.dart';
 import 'pages/about_page.dart';
 import 'pages/home_page.dart';
@@ -8,8 +9,11 @@ import 'pages/input_watch_page.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => WatchListProvider(), // Provide the WatchListProvider
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<WatchListProvider>(create: (context) => WatchListProvider()),
+        ChangeNotifierProvider<ThemeProvider>(create: (context) => ThemeProvider()),
+      ],
       child: const MyApp(),
     ),
   );
@@ -20,6 +24,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Watch Store App",
@@ -62,7 +68,7 @@ class MyApp extends StatelessWidget {
             titleMedium: TextStyle(color: Colors.grey[800]),
             bodyLarge: TextStyle(color: Colors.grey[200]),
           )),
-      themeMode: ThemeMode.system,
+      themeMode: themeProvider.themeMode,
       routes: {
         '/': (context) => const MyIntroPage(),
         '/homepage': (context) => const MyHomePage(),
